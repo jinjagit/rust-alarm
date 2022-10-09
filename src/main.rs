@@ -6,6 +6,7 @@ use crossterm::{ExecutableCommand, cursor};
 
 fn main() {
     let mut stdout = stdout();
+    let display_data = display_data();
     let offset: u32 = 1;
     let one_second = time::Duration::from_millis(1000);
 
@@ -31,7 +32,7 @@ fn main() {
         );
 
         println!();
-        println!("display_data: {:?}", display_data());
+        println!("display_data: {:?}", display_data);
 
         thread::sleep(one_second);
     }
