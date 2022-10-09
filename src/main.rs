@@ -37,14 +37,56 @@ fn correct_hour_with_offset(mut hour: i32) -> i32 {
     hour
 }
 
-fn time_display(now: DateTime<Utc>, hour: i32, display_data: Vec<u32>) {
-    println!(
-        "The current time is {:02}:{:02}:{:02}",
-        hour,
-        now.minute(),
-        now.second()
-    );
+fn time_display(now: DateTime<Utc>, hour: i32, display_data: Vec<Vec<String>>) {
+    let minute = now.minute();
+
+    let mut digit_1 = 0;
+    let mut digit_2 = 0;
+    let mut digit_3 = 0;
+    let mut digit_4 = 0;
+
+    if hour < 10 {
+        digit_2 = hour;
+    }
+
+    if hour >= 10 && hour < 20 {
+        digit_1 = 1;
+        digit_2 = hour - 10;
+    }
+
+    if hour >= 20 {
+        digit_1 = 2;
+        digit_2 = hour - 20;
+    }
+
+    if minute < 10 {
+        digit_4 = 0;
+    }
+
+    if minute >= 10 {
+        digit_3 = (minute - (minute % 10)) / 10;
+        digit_4 = minute % 10;
+    }
+
+    print!("{}", display_data[digit_1 as usize][0]);
+    print!("{}", display_data[digit_2 as usize][0]);
+    print!("  ");
+    print!("{}", display_data[digit_3 as usize][0]);
+    println!("{}", display_data[digit_4 as usize][0]);
+
+    print!("{}", display_data[digit_1 as usize][1]);
+    print!("{}", display_data[digit_2 as usize][1]);
+    print!(" \u{2580}");
+    print!("{}", display_data[digit_3 as usize][1]);
+    println!("{}", display_data[digit_4 as usize][1]);
+
+    print!("{}", display_data[digit_1 as usize][2]);
+    print!("{}", display_data[digit_2 as usize][2]);
+    print!(" \u{2580}");
+    print!("{}", display_data[digit_3 as usize][2]);
+    print!("{}", display_data[digit_4 as usize][2]);
+    println!(" :{:02}", now.second());
 
     println!();
-    println!("display_data: {:?}", display_data);
+    println!(" Alarm set for --:--");
 }
