@@ -15,7 +15,7 @@ fn main() {
 
     loop {
         let now = Utc::now();
-        let hour:i32 = correct_hour_with_offset(now.hour() as i32 + offset);
+        let hour:u32 = correct_hour_with_offset(now.hour(), offset);
     
         stdout.execute(cursor::MoveTo(0,0)).ok();
 
@@ -25,19 +25,21 @@ fn main() {
     }
 }
 
-fn correct_hour_with_offset(mut hour: i32) -> i32 {
-    if hour > 24 {
-        hour = hour - 24;
+fn correct_hour_with_offset(hour: u32, offset: i32) -> u32 {
+    let mut corrected = hour as i32 + offset;
+
+    if corrected > 24 {
+        corrected = corrected - 24;
     }
 
-    if hour < 0 {
-        hour = 24 - hour;
+    if corrected < 0 {
+        corrected = 24 - corrected;
     }
 
-    hour
+    corrected as u32
 }
 
-fn time_display(now: DateTime<Utc>, hour: i32, display_data: Vec<Vec<String>>) {
+fn time_display(now: DateTime<Utc>, hour: u32, display_data: Vec<Vec<String>>) {
     let minute = now.minute();
     let digit_1 = (hour - (hour % 10)) / 10;
     let digit_2 = hour % 10;
