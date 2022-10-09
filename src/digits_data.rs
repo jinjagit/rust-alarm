@@ -1,4 +1,4 @@
-pub fn display_data() -> Vec<Vec<String>> {
+pub fn digits_data() -> Vec<Vec<String>> {
   [ // 0
     [format!(" \u{2584}\u{2584}\u{2584}"),
     format!(" \u{2588} \u{2588}"),
