@@ -1,3 +1,5 @@
+mod display_data;
+use display_data::display_data;
 use chrono::{Timelike, Utc};
 use std::{io::{stdout}, thread, time};
 use crossterm::{ExecutableCommand, cursor};
@@ -29,7 +31,7 @@ fn main() {
         );
 
         println!();
-        println!("something else");
+        println!("display_data: {:?}", display_data());
 
         thread::sleep(one_second);
     }
