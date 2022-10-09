@@ -45,28 +45,35 @@ fn time_display(now: DateTime<Utc>, hour: u32, display_data: Vec<Vec<String>>) {
     let digit_2 = hour % 10;
     let digit_3 = (minute - (minute % 10)) / 10;
     let digit_4 = minute % 10;
+    let mut stdout = stdout();
 
     print!("{}", display_data[digit_1 as usize][0]);
     print!("{}", display_data[digit_2 as usize][0]);
     print!("  ");
     print!("{}", display_data[digit_3 as usize][0]);
     print!("{}", display_data[digit_4 as usize][0]);
-    println!("  ");
+    println!("        ");
 
+    stdout.execute(cursor::MoveTo(0,1)).ok();
     print!("{}", display_data[digit_1 as usize][1]);
     print!("{}", display_data[digit_2 as usize][1]);
     print!(" \u{2580}");
     print!("{}", display_data[digit_3 as usize][1]);
     print!("{}", display_data[digit_4 as usize][1]);
-    println!("  ");
+    println!("        ");
 
+    stdout.execute(cursor::MoveTo(0,2)).ok();
     print!("{}", display_data[digit_1 as usize][2]);
     print!("{}", display_data[digit_2 as usize][2]);
     print!(" \u{2580}");
     print!("{}", display_data[digit_3 as usize][2]);
     print!("{}", display_data[digit_4 as usize][2]);
-    println!(" :{:02}", now.second());
+    print!(" :{:02}", now.second());
+    println!("        ");
 
+    stdout.execute(cursor::MoveTo(0,3)).ok();
     println!();
+
+    stdout.execute(cursor::MoveTo(0,4)).ok();
     println!(" Alarm set for --:--");
 }
